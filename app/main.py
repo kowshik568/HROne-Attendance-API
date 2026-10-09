@@ -34,7 +34,8 @@ class ConfigError(RuntimeError):
     """Raised when required configuration is missing or invalid."""
 
 
-MONGO_URI = os.getenv("MONGO_URI")
+# Prefer the explicit MONGO_URI variable; Render may provide MONGODB_URL.
+MONGO_URI = os.getenv("MONGO_URI") or os.getenv("MONGODB_URL")
 MONGO_DB = os.getenv("MONGO_DB", "hrone")
 
 if not MONGO_URI:
@@ -43,6 +44,13 @@ if not MONGO_URI:
         "project root (see .env.example) with a valid MongoDB connection "
         "string. The application will NOT silently fall back to "
         "mongodb://localhost:27017."
+    )
+
+# Guard against placeholder values left in .env or Render env.
+if "YOUR_URL_ENCODED_PASSWORD" in MONGO_URI or "your_cluster_host" in MONGO_URI.lower():
+    raise ConfigError(
+        "MONGO_URI appears to contain placeholder values. Replace the placeholders "
+        "with your actual Atlas credentials (URL‑encode any special characters)."
     )
 
 # Bounded timeouts so a bad/unreachable URI fails fast with a clear error
