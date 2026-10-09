@@ -1,19 +1,33 @@
-
-# Secrets
-.env
-.env.*
-!.env.example
-
-# Python virtual environments
-.venv/
-.venv*/
-venv/
-
-# Python cache
+# Byte-compiled / cache
 __pycache__/
-*.py[cod]
-.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
 
-# IDE files
+# Virtual environments
+.venv/
+.venv12/
+
+# Environment files (keep secrets out of repo)
+.env
+.env.example
+
+# IDE / editor files
 .vscode/
 .idea/
+*.iml
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Misc
+.DS_Store
