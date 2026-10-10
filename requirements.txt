@@ -6,3 +6,4 @@ python-dotenv
 email-validator
 dnspython
 certifi
+pytest

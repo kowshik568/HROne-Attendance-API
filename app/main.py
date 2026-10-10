@@ -605,3 +605,8 @@ async def explain(endpoint: str):
     # Execute explain – note: the pipeline here is placeholder; real explain would need params
     return mapping[endpoint]()
 
+
+@app.get("/health")
+async def health() -> dict:
+    """Simple health‑check endpoint used by monitoring tools."""
+    return {"status": "ok"}
